@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using Brotherhood.Domain.Models;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Brotherhood.Domain.Models;
 
 namespace Brotherhood.API.Controllers
 {
@@ -13,36 +13,95 @@ namespace Brotherhood.API.Controllers
     [ApiController]
     public class ComicsController : ControllerBase
     {
-        // GET: api/<ComicsController>
+        private readonly ApplicationDbContext _context;
+
+        public ComicsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Comics
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Comics>>> GetComics()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.Comics.ToListAsync();
         }
 
-        // GET api/<ComicsController>/5
+        // GET: api/Comics/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Comics>> GetComics(int id)
         {
-            return "value";
+            var comics = await _context.Comics.FindAsync(id);
+
+            if (comics == null)
+            {
+                return NotFound();
+            }
+
+            return comics;
         }
 
-        // POST api/<ComicsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ComicsController>/5
+        // PUT: api/Comics/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> PutComics(int id, Comics comics)
         {
+            if (id != comics.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(comics).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ComicsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // DELETE api/<ComicsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST: api/Comics
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Comics>> PostComics(Comics comics)
         {
+            _context.Comics.Add(comics);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetComics", new { id = comics.Id }, comics);
+        }
+
+        // DELETE: api/Comics/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteComics(int id)
+        {
+            var comics = await _context.Comics.FindAsync(id);
+            if (comics == null)
+            {
+                return NotFound();
+            }
+
+            _context.Comics.Remove(comics);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool ComicsExists(int id)
+        {
+            return _context.Comics.Any(e => e.Id == id);
         }
     }
 }
