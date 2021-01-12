@@ -15,10 +15,10 @@ namespace Brotherhood.API.Controllers
     {
         // GET: api/<ComicsController>
         [HttpGet]
-        public IEnumerable<Comics> Get()
-        {
-            return ;
-        }
+        //public IEnumerable<Comics> Get()
+        //{
+        //    return Get();
+        //}
 
         // GET api/<ComicsController>/5
         [HttpGet("{id}")]

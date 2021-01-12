@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/brotherhood/databases/The_Brotherhood",
+      "type": "mssql.azure",
+      "connectionId": "Brotherhood",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

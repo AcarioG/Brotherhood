@@ -2,6 +2,7 @@
 
   <PropertyGroup>
      <TargetFramework>net5.0</TargetFramework>
+     <UserSecretsId>ab8f7e93-14bf-4c6d-b56f-c0124dc945b5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Brotherhood.Domain\Brotherhood.Domain.csproj" />
   </ItemGroup>
+
+
 
 
 </Project>
