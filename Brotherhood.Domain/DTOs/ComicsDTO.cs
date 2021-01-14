@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Brotherhood.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Brotherhood.Domain.Models
+namespace Brotherhood.Domain.DTOs
 {
-    public partial class Comics : EntityBase
+    public class ComicsDTO
     {
         public string Title { get; set; }
         public byte[] Cover { get; set; }

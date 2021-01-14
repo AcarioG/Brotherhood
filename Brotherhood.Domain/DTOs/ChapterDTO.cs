@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Brotherhood.Domain.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Brotherhood.Domain.Models
+namespace Brotherhood.Domain.DTOs
 {
-    public partial class Chapter : EntityBase
+    public class ChapterDTO
     {
         public string TitleChapter { get; set; }
         public virtual ICollection<PagesComics> Pages { get; set; }
