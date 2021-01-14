@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Brotherhood.Domain\Brotherhood.Domain.csproj" />
+    <ProjectReference Include="..\Brotherhood.Repository\Brotherhood.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
