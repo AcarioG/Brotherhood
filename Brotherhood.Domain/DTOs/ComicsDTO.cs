@@ -14,7 +14,7 @@ namespace Brotherhood.Domain.DTOs
         public byte[] Cover { get; set; }
         [DataType(DataType.Date)]
         public DateTime DateReleased { get; set; }
-        public string[] Genders { get; set; }
+        public string Genders { get; set; }
         public string Synopsis { get; set; }
         public virtual ICollection<Chapter> Chapters { get; set; }
     }

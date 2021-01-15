@@ -21,12 +21,12 @@ namespace Brotherhood.Repository.Repositories
             return await dbSet.ToListAsync();
         }
 
-        public async Task AddChapter(Chapter entity)
+        public async Task AddChapterAsync(Chapter entity)
         {
              await dbSet.AddAsync(entity);
         }
 
-        public async Task ModifyChapter(Chapter entity)
+        public async Task ModifyChapterAsync(Chapter entity)
         {
             await Task.Run(() =>
             {
@@ -35,7 +35,7 @@ namespace Brotherhood.Repository.Repositories
             await Save();
         }
 
-        public async Task DeleteChapter(Chapter entity)
+        public async Task DeleteChapterAsync(Chapter entity)
         {
             await Task.Run(() =>
             {

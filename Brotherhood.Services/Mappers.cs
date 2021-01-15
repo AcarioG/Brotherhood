@@ -17,11 +17,14 @@ namespace Brotherhood.Services
             {
                 foreach (var chapter in chapters)
                 {
+                    chapterDto.TitleChapter = chapter.TitleChapter;
                     chapterDto.Comic = chapter.Comic;
                     chapterDto.Pages = chapter.Pages;
                 }
             }
             return chapterDTOs;
         }
+
+        //public static
     }
 }

@@ -21,5 +21,20 @@ namespace Brotherhood.Services.Service
             var chaptersDTO = await _unitOfWork.ChapterRepository.GetAll();
             return chaptersDTO.ToList().ToChapterDTO();
         }
+
+        Task IChapterServices.AddChaptersAsync(ChapterDTO entity)
+        {
+            return Task.CompletedTask;
+        }
+
+        Task IChapterServices.DeleteChaptersAsync(ChapterDTO entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IChapterServices.ModifyChaptersAsync(ChapterDTO entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Brotherhood.Services.Interfaces;
+﻿using Brotherhood.Domain.DTOs;
+using Brotherhood.Domain.Models;
+using Brotherhood.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,5 +26,12 @@ namespace Brotherhood.API.Controllers
             var chapters = await _chapterServices.GetChaptersAsync();
             return Ok(chapters);
         }
-    }
+
+        [HttpPost]
+        public async Task<IActionResult> AddChapters(ChapterDTO entity)
+        {
+            await _chapterServices.AddChaptersAsync(entity);
+            return NoContent();
+        }
+}
 }

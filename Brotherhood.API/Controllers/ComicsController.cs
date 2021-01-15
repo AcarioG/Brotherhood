@@ -22,7 +22,17 @@ namespace Brotherhood.API.Controllers
 
         //GET: api/Comics
         [HttpGet]
-        public async Task<IEnumerable<Comics>> GetAsync() => await _context.Comics.ToListAsync();
+        public async Task<IEnumerable<Comics>> GetAsync()
+            {
+            var comics = await _context.Comics.ToListAsync();
+
+            if (comics == null)
+            {
+                return (IEnumerable<Comics>)NotFound();
+            }
+
+            return comics;
+        }
 
         // GET: api/Comics/5
         [HttpGet("{id}")]
@@ -77,8 +87,13 @@ namespace Brotherhood.API.Controllers
             _context.Comics.Add(comics);
             await _context.SaveChangesAsync();
 
+
             return CreatedAtAction("GetComics", new { id = comics.Id }, comics);
+
+            
         }
+
+
 
         // DELETE: api/Comics/5
         [HttpDelete("{id}")]

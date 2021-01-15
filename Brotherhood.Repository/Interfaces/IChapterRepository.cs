@@ -10,8 +10,8 @@ namespace Brotherhood.Repository.Interfaces
     public interface IChapterRepository : IBaseRepository<Chapter>
     {
         Task<IEnumerable<Chapter>> GetAllChapterAsync();
-        Task AddChapter(Chapter entity);
-        Task ModifyChapter(Chapter entity);
-        Task DeleteChapter(Chapter entity);
+        Task AddChapterAsync(Chapter entity);
+        Task ModifyChapterAsync(Chapter entity);
+        Task DeleteChapterAsync(Chapter entity);
     }
 }

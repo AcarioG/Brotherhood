@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brotherhood.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210112014020_Initial")]
-    partial class Initial
+    [Migration("20210115134541_Gender_Synopsis_added")]
+    partial class Gender_Synopsis_added
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,12 @@ namespace Brotherhood.API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TitleChapter")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ComicId");
@@ -48,14 +54,23 @@ namespace Brotherhood.API.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Cover")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Cover")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateReleased")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Genders")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Synopsis")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -76,6 +91,9 @@ namespace Brotherhood.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Pages")
