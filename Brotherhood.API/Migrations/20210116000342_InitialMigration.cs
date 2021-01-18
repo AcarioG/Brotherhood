@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Brotherhood.API.Migrations
 {
-    public partial class Gender_Synopsis_added : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,9 +14,8 @@ namespace Brotherhood.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cover = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Cover = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     DateReleased = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Genders = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -49,12 +48,34 @@ namespace Brotherhood.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Genders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ComicId = table.Column<int>(type: "int", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Genders_Comics_ComicId",
+                        column: x => x.ComicId,
+                        principalTable: "Comics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PagesComics",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Pages = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Pages = table.Column<byte>(type: "tinyint", nullable: false),
                     ChapterId = table.Column<int>(type: "int", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -76,6 +97,11 @@ namespace Brotherhood.API.Migrations
                 column: "ComicId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Genders_ComicId",
+                table: "Genders",
+                column: "ComicId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PagesComics_ChapterId",
                 table: "PagesComics",
                 column: "ChapterId");
@@ -83,6 +109,9 @@ namespace Brotherhood.API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Genders");
+
             migrationBuilder.DropTable(
                 name: "PagesComics");
 

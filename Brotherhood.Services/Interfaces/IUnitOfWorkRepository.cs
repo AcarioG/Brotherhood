@@ -11,5 +11,6 @@ namespace Brotherhood.Services.Interfaces
     {
         IChapterRepository ChapterRepository { get; }
         IComicsRepository ComicsRepository { get;  }
+        IPagesComicsRepository PagesComicsRepository { get; }
     }
 }

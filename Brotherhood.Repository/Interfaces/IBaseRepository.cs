@@ -13,5 +13,6 @@ namespace Brotherhood.Repository.Interfaces
         Task Insert(T entity);
         Task Update(T entity);
         Task Delete(T entity);
+        Task<bool> Save();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Brotherhood.Domain.Models;
+﻿using Brotherhood.Domain.DTOs;
+using Brotherhood.Domain.Models;
 using Brotherhood.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,46 @@ namespace Brotherhood.Services.Service
 {
     public class ComicsService : IComicServices
     {
-        Task IComicServices.AddComicAsync(Comics entity)
+        private readonly IUnitOfWorkRepository _unitOfWork;
+        public ComicsService(IUnitOfWorkRepository unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+        }
+        public async Task AddComicAsync(ComicsDTO entity)
+        {
+            await _unitOfWork.ComicsRepository.AddComic(entity.ToComic());
         }
 
-        Task IComicServices.DeleteComicAsync(Comics entity)
+        public async Task<bool> ComicsExistsAync(int Id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.ComicsRepository.ComicsExistsAsync(Id);
         }
 
-        Task<IEnumerable<Comics>> IComicServices.GetAllComicsAsync()
+        public async Task DeleteComicAsync(DeleteComicDTO entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.ComicsRepository.DeleteComic(entity.ToDeleteComic());
         }
 
-        Task<Comics> IComicServices.GetComicAsync(int Id)
+        public async Task<IEnumerable<ComicsDTO>> GetAllComicsAsync()
         {
-            throw new NotImplementedException();
+            var comicsDTOS = await _unitOfWork.ComicsRepository.GetAllComics();
+            return comicsDTOS.ToList().ToListComicDTO();
         }
 
-        Task IComicServices.ModifyComicAsync(Comics entity)
+        public async Task<ComicsDTO> GetComicAsync(int Id)
         {
-            throw new NotImplementedException();
+            Comic comic = await _unitOfWork.ComicsRepository.GetComic(Id);
+            return comic.ToComicDTO();
+        }
+
+        public async Task ModifyComicAsync(PutComicDTO entity)
+        {
+            await _unitOfWork.ComicsRepository.ModifyComic(entity.ToPutComic());
+        }
+
+        public async Task<bool> SaveComicAsync()
+        {
+            return await _unitOfWork.ComicsRepository.SaveComicDbAsync();
         }
     }
 }

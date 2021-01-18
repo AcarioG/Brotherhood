@@ -46,7 +46,7 @@ namespace Brotherhood.Repository.Repositories
         {
             await Task.Run(() =>
             {
-                dbSet.Update(entity).State = EntityState.Modified;
+                _context.Update(entity).State = EntityState.Modified;
             });
         }
 

@@ -1,4 +1,5 @@
-﻿using Brotherhood.Domain.Models;
+﻿using Brotherhood.Domain.DTOs;
+using Brotherhood.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace Brotherhood.Services.Interfaces
 {
     public interface IComicServices
     {
-        Task<IEnumerable<Comics>> GetAllComicsAsync();
-        Task<Comics> GetComicAsync(int Id);
-        Task AddComicAsync(Comics entity);
-        Task ModifyComicAsync(Comics entity);
-        Task DeleteComicAsync(Comics entity);
+        Task<IEnumerable<ComicsDTO>> GetAllComicsAsync();
+        Task<ComicsDTO> GetComicAsync(int Id);
+        Task AddComicAsync(ComicsDTO entity);
+        Task ModifyComicAsync(PutComicDTO entity);
+        Task DeleteComicAsync(DeleteComicDTO entity);
+        Task<bool> SaveComicAsync();
+        Task<bool> ComicsExistsAync(int Id);
     }
 }

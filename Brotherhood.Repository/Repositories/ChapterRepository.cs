@@ -18,32 +18,33 @@ namespace Brotherhood.Repository.Repositories
 
         public async Task<IEnumerable<Chapter>> GetAllChapterAsync()
         {
-            return await dbSet.ToListAsync();
+            return await GetAll();
         }
 
         public async Task AddChapterAsync(Chapter entity)
         {
-             await dbSet.AddAsync(entity);
+            await Insert(entity);
+        }
+
+        public async Task<Chapter> GetChapterAsync(int Id)
+        {
+            return await Get(Id);
         }
 
         public async Task ModifyChapterAsync(Chapter entity)
         {
-            await Task.Run(() =>
-            {
-                dbSet.Update(entity).State = EntityState.Modified;
-            });
-            await Save();
+            await Update(entity);
         }
 
         public async Task DeleteChapterAsync(Chapter entity)
         {
-            await Task.Run(() =>
-            {
-                dbSet.Remove(entity).State = EntityState.Deleted;
-            });
-            await Save();
+            await Delete(entity);
         }
 
-        
+        public async Task<bool> SaveChapterAsync()
+        {
+            return await Save();
+        }
+
     }
 }

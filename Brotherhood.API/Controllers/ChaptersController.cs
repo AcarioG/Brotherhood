@@ -23,14 +23,29 @@ namespace Brotherhood.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var chapters = await _chapterServices.GetChaptersAsync();
+            var chapters = await _chapterServices.GetAllChaptersAsync();
             return Ok(chapters);
+        }
+
+        [HttpGet ("{Id}")]
+        public async Task<ActionResult<ChapterDTO>> GetChapter(int Id)
+        {
+            var chapter = await _chapterServices.GetChapterAsync(Id);
+
+            if (chapter == null)
+            {
+                return NotFound();
+            }
+
+            return chapter;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddChapters(ChapterDTO entity)
         {
             await _chapterServices.AddChaptersAsync(entity);
+            await _chapterServices.SaveChaptersAsync();
+
             return NoContent();
         }
 }

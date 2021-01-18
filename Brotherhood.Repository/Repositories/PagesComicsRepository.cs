@@ -8,28 +8,33 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.Repository.Repositories
 {
-    public class PagesComicsRepository : BaseRepository<PagesComics>, IPagesComicsRepository
+    public class PagesComicsRepository : BaseRepository<PageComic>, IPagesComicsRepository
     {
         public PagesComicsRepository(ApplicationDbContext context)
             : base(context)
         {
         }
 
-        Task<IEnumerable<PagesComics>> IPagesComicsRepository.GetAllPagesAsync()
+        Task<IEnumerable<PageComic>> IPagesComicsRepository.GetAllPagesAsync()
         {
             throw new NotImplementedException();
         }
 
-        Task IPagesComicsRepository.AddPage(PagesComics entity)
+        Task IPagesComicsRepository.AddPage(PageComic entity)
         {
             throw new NotImplementedException();
         }
 
-        Task IPagesComicsRepository.ModifyPage(PagesComics entity)
+        Task IPagesComicsRepository.ModifyPage(PageComic entity)
         {
             throw new NotImplementedException();
         }
-        Task IPagesComicsRepository.DeletePage(PagesComics entity)
+        Task IPagesComicsRepository.DeletePage(PageComic entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SavePageAsync()
         {
             throw new NotImplementedException();
         }

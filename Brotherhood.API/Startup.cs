@@ -34,6 +34,7 @@ namespace Brotherhood.API
             services.AddTransient<IComicsRepository, ComicsRepository>();
             services.AddTransient<IUnitOfWorkRepository, UnitOfWorkRepository>();
             services.AddTransient<IChapterServices, ChapterService>();
+            services.AddTransient<IComicServices, ComicsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

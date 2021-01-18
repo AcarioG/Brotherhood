@@ -1,20 +1,17 @@
-﻿using Brotherhood.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Brotherhood.Domain.DTOs
+namespace Brotherhood.Domain.Models
 {
-    public class ComicsDTO
+    public partial class Comic : EntityBase
     {
         public string Title { get; set; }
         public byte[] Cover { get; set; }
         [DataType(DataType.Date)]
         public DateTime DateReleased { get; set; }
-        public ICollection<Gender> Genders { get; set; }
+        public virtual ICollection<Gender> Genders { get; set; }
         public string Synopsis { get; set; }
         public virtual ICollection<Chapter> Chapters { get; set; }
     }

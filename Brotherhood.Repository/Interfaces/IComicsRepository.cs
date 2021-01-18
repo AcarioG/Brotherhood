@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.Repository.Interfaces
 {
-    public interface IComicsRepository : IBaseRepository<Comics>
+    public interface IComicsRepository : IBaseRepository<Comic>
     {
-        Task<IEnumerable<Comics>> GetAllComics();
-        Task<Comics> GetComic(int Id);
-        Task AddComic(Comics entity);
-        Task ModifyComic(Comics entity);
-        Task DeleteComic(Comics entity);
+        Task<IEnumerable<Comic>> GetAllComics();
+        Task<Comic> GetComic(int Id);
+        Task AddComic(Comic entity);
+        Task ModifyComic(Comic entity);
+        Task DeleteComic(Comic entity);
+        Task<bool> SaveComicDbAsync();
+        Task<bool> ComicsExistsAsync(int Id);
     }
 }

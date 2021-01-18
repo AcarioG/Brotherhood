@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Brotherhood.Domain.Models;
+using Brotherhood.Services.Interfaces;
+using Brotherhood.Domain.DTOs;
+using Brotherhood.Services;
 
 namespace Brotherhood.API.Controllers
 {
@@ -13,22 +15,22 @@ namespace Brotherhood.API.Controllers
     [ApiController]
     public class ComicsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IComicServices _comicServices;
 
-        public ComicsController(ApplicationDbContext context)
+        public ComicsController(IComicServices comicServices)
         {
-            _context = context;
+            _comicServices = comicServices;
         }
 
         //GET: api/Comics
         [HttpGet]
-        public async Task<IEnumerable<Comics>> GetAsync()
+        public async Task<IEnumerable<ComicsDTO>> GetAsync()
             {
-            var comics = await _context.Comics.ToListAsync();
+            var comics = await _comicServices.GetAllComicsAsync();
 
             if (comics == null)
             {
-                return (IEnumerable<Comics>)NotFound();
+                return (IEnumerable<ComicsDTO>)NotFound();
             }
 
             return comics;
@@ -36,9 +38,9 @@ namespace Brotherhood.API.Controllers
 
         // GET: api/Comics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comics>> GetComic(int id)
+        public async Task<ActionResult<ComicsDTO>> GetComic(int id)
         {
-            var comics = await _context.Comics.FindAsync(id);
+            var comics = await _comicServices.GetComicAsync(id);
 
             if (comics == null)
             {
@@ -51,22 +53,22 @@ namespace Brotherhood.API.Controllers
         // PUT: api/Comics/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComics(int id, Comics comics)
+        public async Task<IActionResult> PutComics(int id, PutComicDTO comics)
         {
             if (id != comics.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(comics).State = EntityState.Modified;
+            await _comicServices.ModifyComicAsync(comics);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _comicServices.SaveComicAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ComicsExists(id))
+                if (!await _comicServices.ComicsExistsAync(id))
                 {
                     return NotFound();
                 }
@@ -82,15 +84,12 @@ namespace Brotherhood.API.Controllers
         // POST: api/Comics
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comics>> PostComics(Comics comics)
+        public async Task<ActionResult> PostComics([FromBody]ComicsDTO comics)
         {
-            _context.Comics.Add(comics);
-            await _context.SaveChangesAsync();
+            await _comicServices.AddComicAsync(comics);
+            await _comicServices.SaveComicAsync();
 
-
-            return CreatedAtAction("GetComics", new { id = comics.Id }, comics);
-
-            
+            return NoContent();
         }
 
 
@@ -99,21 +98,16 @@ namespace Brotherhood.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComics(int id)
         {
-            var comics = await _context.Comics.FindAsync(id);
-            if (comics == null)
+            ComicsDTO comic = await _comicServices.GetComicAsync(id);
+            if (comic == null)
             {
                 return NotFound();
             }
 
-            _context.Comics.Remove(comics);
-            await _context.SaveChangesAsync();
+            await _comicServices.DeleteComicAsync(comic.ToComicDelete());
+            await _comicServices.SaveComicAsync();
 
             return NoContent();
-        }
-
-        private bool ComicsExists(int id)
-        {
-            return _context.Comics.Any(e => e.Id == id);
         }
     }
 }

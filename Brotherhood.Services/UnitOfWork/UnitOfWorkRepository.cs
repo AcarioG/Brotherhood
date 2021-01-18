@@ -15,11 +15,13 @@ namespace Brotherhood.Services.UnitOfWork
         public IChapterRepository ChapterRepository { get; }
 
         public IComicsRepository ComicsRepository { get; }
+        public IPagesComicsRepository PagesComicsRepository { get; }
 
         public UnitOfWorkRepository(ApplicationDbContext context)
         {
             ChapterRepository = new ChapterRepository(context);
             ComicsRepository = new ComicsRepository(context);
+            PagesComicsRepository = new PagesComicsRepository(context);
         }
     }
 }

@@ -9,46 +9,47 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Brotherhood.Repository.Repositories
 {
-    public class ComicsRepository : BaseRepository<Comics>, IComicsRepository
+    public class ComicsRepository : BaseRepository<Comic>, IComicsRepository
     {
         public ComicsRepository(ApplicationDbContext context) 
             : base(context)
         {
         }
 
-        public async Task<IEnumerable<Comics>> GetAllComics()
+        public async Task<IEnumerable<Comic>> GetAllComics()
         {
-            return await dbSet.ToListAsync();
+            return await GetAll();
         }
 
-        public async Task<Comics> GetComic(int Id)
+        public async Task<Comic> GetComic(int Id)
         {
-            return await dbSet.FindAsync(Id);
+            return await Get(Id);
         }
 
-        public async Task AddComic(Comics entity)
+        public async Task AddComic(Comic entity)
         {
-            await dbSet.AddAsync(entity);
-            await Save();
+            await Insert(entity);
         }
 
-        public async Task ModifyComic(Comics entity)
+        public async Task ModifyComic(Comic entity)
         {
-            await Task.Run(() =>
-            {
-                dbSet.Update(entity).State = EntityState.Modified;
-            });
-            await Save();
+            await Update(entity);
         }
 
-        public async Task DeleteComic(Comics entity)
+        public async Task DeleteComic(Comic entity)
         {
-            await Task.Run(() =>
-            {
-                dbSet.Remove(entity).State = EntityState.Deleted;
-            });
+            await Delete(entity);
+        }
 
-            await Save();
+        public async Task<bool> SaveComicDbAsync()
+        {
+            return await Save();
+        }
+
+        public async Task<bool> ComicsExistsAsync(int Id)
+        {
+            var comics = await GetAllComics();
+            return comics.Any(db => db.Id == Id);
         }
     }
 }

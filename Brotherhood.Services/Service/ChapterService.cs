@@ -16,25 +16,37 @@ namespace Brotherhood.Services.Service
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IEnumerable<ChapterDTO>> GetChaptersAsync()
+
+        public async Task AddChaptersAsync(ChapterDTO entity)
         {
-            var chaptersDTO = await _unitOfWork.ChapterRepository.GetAll();
-            return chaptersDTO.ToList().ToChapterDTO();
+            await _unitOfWork.ChapterRepository.AddChapterAsync(entity.ToChapter());
         }
 
-        Task IChapterServices.AddChaptersAsync(ChapterDTO entity)
+        public async Task DeleteChaptersAsync(DeleteChapterDTO entity)
         {
-            return Task.CompletedTask;
+            await _unitOfWork.ChapterRepository.DeleteChapterAsync(entity.ToDeleteChapter());
         }
 
-        Task IChapterServices.DeleteChaptersAsync(ChapterDTO entity)
+        public async Task<IEnumerable<ChapterDTO>> GetAllChaptersAsync()
         {
-            throw new NotImplementedException();
+            var chaptersDTO = await _unitOfWork.ChapterRepository.GetAllChapterAsync();
+            return chaptersDTO.ToList().ToListChapterDTO();
         }
 
-        Task IChapterServices.ModifyChaptersAsync(ChapterDTO entity)
+        public async Task<ChapterDTO> GetChapterAsync(int Id)
         {
-            throw new NotImplementedException();
+            Chapter chapter = await _unitOfWork.ChapterRepository.GetChapterAsync(Id);
+            return chapter.ToChapter();
+        }
+
+        public async Task ModifyChaptersAsync(PutChapterDTO entity)
+        {
+            await _unitOfWork.ChapterRepository.ModifyChapterAsync(entity.ToPutChapter());
+        }
+
+        public async Task<bool> SaveChaptersAsync()
+        {
+            return await _unitOfWork.ChapterRepository.SaveChapterAsync();
         }
     }
 }

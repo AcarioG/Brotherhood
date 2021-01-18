@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brotherhood.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210115134541_Gender_Synopsis_added")]
-    partial class Gender_Synopsis_added
+    [Migration("20210116024250_CorrectGender")]
+    partial class CorrectGender
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace Brotherhood.API.Migrations
                     b.ToTable("Chapters");
                 });
 
-            modelBuilder.Entity("Brotherhood.Domain.Models.Comics", b =>
+            modelBuilder.Entity("Brotherhood.Domain.Models.Comic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,9 +63,6 @@ namespace Brotherhood.API.Migrations
                     b.Property<DateTime>("DateReleased")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Genders")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -80,7 +77,33 @@ namespace Brotherhood.API.Migrations
                     b.ToTable("Comics");
                 });
 
-            modelBuilder.Entity("Brotherhood.Domain.Models.PagesComics", b =>
+            modelBuilder.Entity("Brotherhood.Domain.Models.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ComicId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComicId");
+
+                    b.ToTable("Genders");
+                });
+
+            modelBuilder.Entity("Brotherhood.Domain.Models.PageComic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,8 +119,8 @@ namespace Brotherhood.API.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte[]>("Pages")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<byte>("Pages")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
@@ -108,14 +131,21 @@ namespace Brotherhood.API.Migrations
 
             modelBuilder.Entity("Brotherhood.Domain.Models.Chapter", b =>
                 {
-                    b.HasOne("Brotherhood.Domain.Models.Comics", "Comic")
+                    b.HasOne("Brotherhood.Domain.Models.Comic", "Comic")
                         .WithMany("Chapters")
                         .HasForeignKey("ComicId");
 
                     b.Navigation("Comic");
                 });
 
-            modelBuilder.Entity("Brotherhood.Domain.Models.PagesComics", b =>
+            modelBuilder.Entity("Brotherhood.Domain.Models.Gender", b =>
+                {
+                    b.HasOne("Brotherhood.Domain.Models.Comic", null)
+                        .WithMany("Genders")
+                        .HasForeignKey("ComicId");
+                });
+
+            modelBuilder.Entity("Brotherhood.Domain.Models.PageComic", b =>
                 {
                     b.HasOne("Brotherhood.Domain.Models.Chapter", "Chapter")
                         .WithMany("Pages")
@@ -129,9 +159,11 @@ namespace Brotherhood.API.Migrations
                     b.Navigation("Pages");
                 });
 
-            modelBuilder.Entity("Brotherhood.Domain.Models.Comics", b =>
+            modelBuilder.Entity("Brotherhood.Domain.Models.Comic", b =>
                 {
                     b.Navigation("Chapters");
+
+                    b.Navigation("Genders");
                 });
 #pragma warning restore 612, 618
         }

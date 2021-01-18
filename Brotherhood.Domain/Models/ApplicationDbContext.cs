@@ -13,9 +13,10 @@ namespace Brotherhood.Domain.Models
 
         }
 
-        public DbSet<Comics> Comics { get; set; }
+        public DbSet<Comic> Comics { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
-        public DbSet<PagesComics> PagesComics { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<PageComic> PagesComics { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,13 +27,16 @@ namespace Brotherhood.Domain.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Comics>()
+            modelBuilder.Entity<Comic>()
                         .HasMany(c => c.Chapters)
                         .WithOne(c => c.Comic);
 
+            modelBuilder.Entity<Comic>()
+                        .HasMany(g => g.Genders);
+
             modelBuilder.Entity<Chapter>()
                         .HasMany(p => p.Pages)
-                        .WithOne(p => p.Chapter);
+                        .WithOne(p => p.Chapter);           
             base.OnModelCreating(modelBuilder);
         }
     }
