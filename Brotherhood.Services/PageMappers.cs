@@ -46,7 +46,7 @@ namespace Brotherhood.Services
                 Pages = putpageDTO.Pages,
             };
         }
-        public static Page ToDeleteChapter(this DeletePageDTO deletePage)
+        public static Page ToDeletePages(this DeletePageDTO deletePage)
         {
             return new Page()
             {
@@ -55,13 +55,12 @@ namespace Brotherhood.Services
 
             };
         }
-        public static DeleteChapterDTO ToChapterDelete(this ChapterDTO deleteChapter)
+        public static DeletePageDTO ToPageDelete(this PagesDTO deletePage)
         {
-            return new DeleteChapterDTO()
+            return new DeletePageDTO()
             {
-                Comic = deleteChapter.Comic,
-                Pages = deleteChapter.Pages,
-                TitleChapter = deleteChapter.TitleChapter
+                Chapter = deletePage.Chapter,
+                Pages = deletePage.Pages
             };
         }
 

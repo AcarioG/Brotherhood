@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Brotherhood.API.Controllers
 {
@@ -72,10 +74,13 @@ namespace Brotherhood.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddChapters([FromBody]ChapterDTO entity, [FromBody])
+        public async Task<IActionResult> AddChapters([FromBody]ChapterDTO chapter)
         {
-            await _chapterServices.AddChaptersAsync(entity);
-            await _chapterServices.SaveChaptersAsync();
+
+
+
+            await _chapterServices.AddChaptersAsync(chapter);
+            //await _chapterServices.SaveChaptersAsync();
 
             return NoContent();
         }

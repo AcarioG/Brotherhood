@@ -9,6 +9,7 @@ namespace Brotherhood.Domain.DTOs
 {
     public class PagesDTO
     {
+        public int Id { get; set; }
         public byte[] Pages { get; set; }
         public virtual Chapter Chapter { get; set; }
     }
