@@ -11,7 +11,7 @@ namespace Brotherhood.Domain.DTOs
     {
         public int Id { get; set; }
         public string TitleChapter { get; set; }
-        public virtual ICollection<PageComic> Pages { get; set; }
+        public virtual ICollection<Page> Pages { get; set; }
         public virtual Comic Comic { get; set; }
     }
 }

@@ -13,15 +13,12 @@ namespace Brotherhood.Services
         public static List<ChapterDTO> ToListChapterDTO(this List<Chapter> chapters)
         {
             List<ChapterDTO> chapterDTOs = new List<ChapterDTO>();
-            foreach (var chapterDto in chapterDTOs)
+
+            chapters.ForEach(c =>
             {
-                foreach (var chapter in chapters)
-                {
-                    chapterDto.TitleChapter = chapter.TitleChapter;
-                    chapterDto.Comic = chapter.Comic;
-                    chapterDto.Pages = chapter.Pages;
-                }
-            }
+                chapterDTOs.Add(c.ToChapter());
+            });
+
             return chapterDTOs;
         }
 
@@ -44,7 +41,6 @@ namespace Brotherhood.Services
                 TitleChapter = chapterDTO.TitleChapter
             };
         }
-
         public static Chapter ToPutChapter(this PutChapterDTO putchapterDTO)
         {
             return new Chapter()
@@ -54,7 +50,15 @@ namespace Brotherhood.Services
                 TitleChapter = putchapterDTO.TitleChapter
             };
         }
-
+        public static Chapter ToDeleteChapter(this DeleteChapterDTO deleteChapter)
+        {
+            return new Chapter()
+            {
+                Comic = deleteChapter.Comic,
+                Pages = deleteChapter.Pages,
+                TitleChapter = deleteChapter.TitleChapter
+            };
+        }
         public static DeleteChapterDTO ToChapterDelete(this ChapterDTO deleteChapter)
         {
             return new DeleteChapterDTO()
@@ -65,14 +69,6 @@ namespace Brotherhood.Services
             };
         }
 
-        public static Chapter ToDeleteChapter(this DeleteChapterDTO deleteChapter)
-        {
-            return new Chapter()
-            {
-                Comic = deleteChapter.Comic,
-                Pages = deleteChapter.Pages,
-                TitleChapter = deleteChapter.TitleChapter
-            };
-        }
-    }
+
+    }   
 }

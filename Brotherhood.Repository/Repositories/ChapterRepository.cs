@@ -16,27 +16,27 @@ namespace Brotherhood.Repository.Repositories
         {
         }
 
-        public async Task<IEnumerable<Chapter>> GetAllChapterAsync()
+        public async Task<IEnumerable<Chapter>> GetAllChapter()
         {
             return await GetAll();
         }
 
-        public async Task AddChapterAsync(Chapter entity)
+        public async Task AddChapter(Chapter entity)
         {
             await Insert(entity);
         }
 
-        public async Task<Chapter> GetChapterAsync(int Id)
+        public async Task<Chapter> GetChapter(int Id)
         {
             return await Get(Id);
         }
 
-        public async Task ModifyChapterAsync(Chapter entity)
+        public async Task ModifyChapter(Chapter entity)
         {
             await Update(entity);
         }
 
-        public async Task DeleteChapterAsync(Chapter entity)
+        public async Task DeleteChapter(Chapter entity)
         {
             await Delete(entity);
         }
@@ -44,6 +44,11 @@ namespace Brotherhood.Repository.Repositories
         public async Task<bool> SaveChapterAsync()
         {
             return await Save();
+        }
+        public async Task<bool> ChapterExistAsync(int Id)
+        {
+            var chapter = await GetAllChapter();
+            return chapter.Any(db => db.Id == Id);
         }
 
     }

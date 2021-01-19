@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.Repository.Interfaces
 {
-    public interface IPagesComicsRepository : IBaseRepository<PageComic>
+    public interface IPagesComicsRepository : IBaseRepository<Page>
     {
-        Task<IEnumerable<PageComic>> GetAllPagesAsync();
-        Task AddPage(PageComic entity);
-        Task ModifyPage(PageComic entity);
-        Task DeletePage(PageComic entity);
+        Task<IEnumerable<Page>> GetAllPagesAsync();
+        Task AddPage(Page entity);
+        Task ModifyPage(Page entity);
+        Task DeletePage(Page entity);
         Task<bool> SavePageAsync();
     }
 }

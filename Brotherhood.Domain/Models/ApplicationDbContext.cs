@@ -16,7 +16,7 @@ namespace Brotherhood.Domain.Models
         public DbSet<Comic> Comics { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Gender> Genders { get; set; }
-        public DbSet<PageComic> PagesComics { get; set; }
+        public DbSet<Page> Pages { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

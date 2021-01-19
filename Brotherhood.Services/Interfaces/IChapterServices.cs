@@ -16,5 +16,6 @@ namespace Brotherhood.Services.Interfaces
         Task ModifyChaptersAsync(PutChapterDTO entity);
         Task DeleteChaptersAsync(DeleteChapterDTO entity);
         Task<bool> SaveChaptersAsync();
+        Task<bool> ChapterExistAsync(int Id);
     }
 }

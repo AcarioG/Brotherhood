@@ -1,8 +1,10 @@
 ﻿using Brotherhood.Domain.DTOs;
 using Brotherhood.Domain.Models;
+using Brotherhood.Services;
 using Brotherhood.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace Brotherhood.API.Controllers
             return Ok(chapters);
         }
 
-        [HttpGet ("{Id}")]
+        [HttpGet("{Id}")]
         public async Task<ActionResult<ChapterDTO>> GetChapter(int Id)
         {
             var chapter = await _chapterServices.GetChapterAsync(Id);
@@ -40,13 +42,57 @@ namespace Brotherhood.API.Controllers
             return chapter;
         }
 
+        [HttpPut]
+        public async Task<IActionResult> PutChapter(int Id, PutChapterDTO chapter)
+        {
+            if (Id != chapter.Id)
+            {
+                return BadRequest();
+            }
+
+            await _chapterServices.ModifyChaptersAsync(chapter);
+
+            try
+            {
+                await _chapterServices.SaveChaptersAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _chapterServices.ChapterExistAsync(Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddChapters(ChapterDTO entity)
+        public async Task<IActionResult> AddChapters([FromBody]ChapterDTO entity, [FromBody])
         {
             await _chapterServices.AddChaptersAsync(entity);
             await _chapterServices.SaveChaptersAsync();
 
             return NoContent();
         }
-}
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteChapters(int id)
+        {
+            ChapterDTO chapter = await _chapterServices.GetChapterAsync(id);
+            if (chapter == null)
+            {
+                return NotFound();
+            }
+
+            await _chapterServices.DeleteChaptersAsync(chapter.ToChapterDelete());
+            await _chapterServices.SaveChaptersAsync();
+
+            return NoContent();
+        }
+    }
 }

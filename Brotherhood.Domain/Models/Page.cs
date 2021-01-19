@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Brotherhood.Domain.Models
 {
-    public partial class PageComic : EntityBase
+    public partial class Page : EntityBase
     {
-        public byte Pages { get; set; }
+        public byte[] Pages { get; set; }
         public virtual Chapter Chapter { get; set; }
     }
 }

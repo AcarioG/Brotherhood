@@ -13,7 +13,6 @@ namespace Brotherhood.Services.UnitOfWork
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
         public IChapterRepository ChapterRepository { get; }
-
         public IComicsRepository ComicsRepository { get; }
         public IPagesComicsRepository PagesComicsRepository { get; }
 

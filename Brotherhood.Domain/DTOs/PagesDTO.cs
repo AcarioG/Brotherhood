@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.Domain.DTOs
 {
-    public class ChapterDTO
+    public class PagesDTO
     {
-        public string TitleChapter { get; set; }
-        public virtual ICollection<Page> Pages { get; set; }
-        public virtual Comic Comic { get; set; }
+        public byte[] Pages { get; set; }
+        public virtual Chapter Chapter { get; set; }
     }
 }

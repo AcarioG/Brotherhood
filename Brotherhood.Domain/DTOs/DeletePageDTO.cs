@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.Domain.DTOs
 {
-    public class PutChapterDTO
+    public class DeletePageDTO
     {
         public int Id { get; set; }
-        public string TitleChapter { get; set; }
-        public virtual ICollection<Page> Pages { get; set; }
-        public virtual Comic Comic { get; set; }
+        public byte[] Pages { get; set; }
+        public virtual Chapter Chapter { get; set; }
     }
 }

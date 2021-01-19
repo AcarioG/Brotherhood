@@ -7,7 +7,7 @@ namespace Brotherhood.Domain.Models
     public partial class Chapter : EntityBase
     {
         public string TitleChapter { get; set; }
-        public virtual ICollection<PageComic> Pages { get; set; }
+        public virtual ICollection<Page> Pages { get; set; }
         public virtual Comic Comic { get; set; }
     }
 }

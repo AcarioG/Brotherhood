@@ -12,20 +12,12 @@ namespace Brotherhood.Services
     {
         public static List<ComicsDTO> ToListComicDTO(this List<Comic> comics)
         {
-            List<ComicsDTO> comicDTOs = new List<ComicsDTO>();
-            foreach (var comic in comics)
+            List<ComicsDTO> comicsDTOs = new List<ComicsDTO>();
+            comics.ForEach(c =>
             {
-                foreach (var comicDTO in comicDTOs)
-                {
-                    comicDTO.Chapters = comic.Chapters;
-                    comicDTO.Cover = comic.Cover;
-                    comicDTO.DateReleased = comic.DateReleased;
-                    comicDTO.Title = comic.Title;
-                    comicDTO.Synopsis = comic.Synopsis;
-                    comicDTO.Genders = comic.Genders;
-                }
-            }
-            return comicDTOs;
+                comicsDTOs.Add(c.ToComicDTO());
+            });
+            return comicsDTOs;
         }
 
         public static ComicsDTO ToComicDTO(this Comic comic)
