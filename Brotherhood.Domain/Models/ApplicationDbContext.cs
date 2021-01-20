@@ -29,14 +29,16 @@ namespace Brotherhood.Domain.Models
         {
             modelBuilder.Entity<Comic>()
                         .HasMany(c => c.Chapters)
-                        .WithOne(c => c.Comic);
+                        .WithOne(c => c.Comic)
+                        .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Comic>()
                         .HasMany(g => g.Genders);
 
             modelBuilder.Entity<Chapter>()
                         .HasMany(p => p.Pages)
-                        .WithOne(p => p.Chapter);           
+                        .WithOne(p => p.Chapter)
+                        .OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(modelBuilder);
         }
     }
