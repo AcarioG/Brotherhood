@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotherhood.Services", "Bro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotherhood.Repository", "Brotherhood.Repository\Brotherhood.Repository.csproj", "{EC694F0C-D17D-4A46-B1A8-B939C4EDD64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brotherhood.UI", "Brotherhood.UI\Brotherhood.UI.csproj", "{DA287FAA-5209-49B8-9C5E-242B8B0BBBBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brotherhood.UI", "Brotherhood.UI\Brotherhood.UI.csproj", "{F1BB7BE1-786E-4564-864D-443B549F5AA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{EC694F0C-D17D-4A46-B1A8-B939C4EDD64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC694F0C-D17D-4A46-B1A8-B939C4EDD64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC694F0C-D17D-4A46-B1A8-B939C4EDD64E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA287FAA-5209-49B8-9C5E-242B8B0BBBBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA287FAA-5209-49B8-9C5E-242B8B0BBBBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA287FAA-5209-49B8-9C5E-242B8B0BBBBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA287FAA-5209-49B8-9C5E-242B8B0BBBBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1BB7BE1-786E-4564-864D-443B549F5AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BB7BE1-786E-4564-864D-443B549F5AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BB7BE1-786E-4564-864D-443B549F5AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BB7BE1-786E-4564-864D-443B549F5AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -30,6 +30,16 @@ namespace Brotherhood.API
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Brotherhood"),b => b.MigrationsAssembly("Brotherhood.API"));
             });
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
             services.AddTransient<IChapterRepository, ChapterRepository>();
             services.AddTransient<IComicsRepository, ComicsRepository>();
             services.AddTransient<IUnitOfWorkRepository, UnitOfWorkRepository>();
