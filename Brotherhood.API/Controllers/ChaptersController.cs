@@ -80,7 +80,7 @@ namespace Brotherhood.API.Controllers
 
 
             await _chapterServices.AddChaptersAsync(chapter);
-            //await _chapterServices.SaveChaptersAsync();
+            await _chapterServices.SaveChaptersAsync();
 
             return NoContent();
         }

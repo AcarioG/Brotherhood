@@ -10,6 +10,8 @@ using Brotherhood.Repository.Repositories;
 using Brotherhood.Services.UnitOfWork;
 using Brotherhood.Services.Interfaces;
 using Brotherhood.Services.Service;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Brotherhood.API
 {
@@ -26,6 +28,9 @@ namespace Brotherhood.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddControllersWithViews()
+                        .AddJsonOptions(o => o.JsonSerializerOptions
+                        .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Brotherhood"),b => b.MigrationsAssembly("Brotherhood.API"));
@@ -36,7 +41,8 @@ namespace Brotherhood.API
                 {
                     policy.AllowAnyOrigin()
                           .AllowAnyMethod()
-                          .AllowAnyHeader();
+                          .AllowAnyHeader()
+                          .AllowCredentials();
                 });
             });
 

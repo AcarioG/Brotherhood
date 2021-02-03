@@ -9,9 +9,9 @@ namespace Brotherhood.UI.ViewModels
 {
     public class ComicViewModel
     {
-        public async Task<IEnumerable<ComicsDTO>> GetComicsAsync()
-        {
-            throw await;
-        }
+        //public static async Task<IEnumerable<ComicsDTO>> GetComicsAsync()
+        //{
+        //   return await GetComicsAsync();
+        //}
     }
 }
