@@ -37,14 +37,15 @@ namespace Brotherhood.API
             });
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(policy =>
+                options.AddPolicy("CorsPolicy", policy =>
                 {
                     policy.AllowAnyOrigin()
                           .AllowAnyMethod()
-                          .AllowAnyHeader()
-                          .AllowCredentials();
+                          .AllowAnyHeader();
                 });
             });
+
+
 
             services.AddTransient<IChapterRepository, ChapterRepository>();
             services.AddTransient<IComicsRepository, ComicsRepository>();
@@ -62,6 +63,8 @@ namespace Brotherhood.API
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

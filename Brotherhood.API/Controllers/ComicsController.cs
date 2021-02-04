@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Brotherhood.Services.Interfaces;
 using Brotherhood.Domain.DTOs;
 using Brotherhood.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace Brotherhood.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
     public class ComicsController : ControllerBase
     {
         private readonly IComicServices _comicServices;
