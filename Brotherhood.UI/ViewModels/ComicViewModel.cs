@@ -9,9 +9,11 @@ namespace Brotherhood.UI.ViewModels
 {
     public class ComicViewModel
     {
-        //public static async Task<IEnumerable<ComicsDTO>> GetComicsAsync()
-        //{
-        //   return await GetComicsAsync();
-        //}
+        public string Title { get; set; }
+        public byte[] Cover { get; set; }
+        public DateTime DateReleased { get; set; }
+        //public ICollection<GenderViewModel> Genders { get; set; }
+        public string Synopsis { get; set; }
+        //public virtual ICollection<ChapterViewModel> Chapters { get; set; }
     }
 }

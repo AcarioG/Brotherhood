@@ -1,0 +1,42 @@
+﻿@page "/comics"
+
+<h3>Comics</h3>
+<div class="container">
+    @foreach (var comics in ComicsDTO)
+    {
+        <div class="col-sm-3">
+            <a href="/comics/{id}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @comics.Title
+                        </h5>
+                        <p class="card-text">@comics.Synopsis</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+    }
+    </div>
+
+
+@code {
+
+    private List<ComicsDTO> ComicsDTO = new List<ComicsDTO>();
+    HttpClient http = new HttpClient();
+
+    protected override async Task OnInitializedAsync()
+    {
+        string rpt = await http.GetStringAsync("http://localhost:51185/api/comics");
+        var data = JsonConvert.DeserializeObject<List<ComicsDTO>>(rpt);
+
+        //Console.WriteLine(rpt);
+        //var client = http.CreateClient("WebService");
+        //var data = await client.GetFromJsonAsync<List<ComicsDTO>>("comics");
+
+        ComicsDTO = data;
+    }
+
+
+}

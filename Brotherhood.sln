@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotherhood.Services", "Bro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotherhood.Repository", "Brotherhood.Repository\Brotherhood.Repository.csproj", "{EC694F0C-D17D-4A46-B1A8-B939C4EDD64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brotherhood.UI", "Brotherhood.UI\Brotherhood.UI.csproj", "{F1BB7BE1-786E-4564-864D-443B549F5AA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotherhood.UI", "Brotherhood.UI\Brotherhood.UI.csproj", "{F1BB7BE1-786E-4564-864D-443B549F5AA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
