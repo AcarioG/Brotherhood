@@ -1,6 +1,7 @@
 ﻿@page "/comics"
 
 <h3>Comics</h3>
+<a href="/comics/create" class="btn btn-info">Crear</a>
 <div class="container">
     @foreach (var comics in ComicsDTO)
     {
@@ -11,7 +12,7 @@
                         <h5 class="card-title">
                             @comics.Title
                         </h5>
-                        <p class="card-text">@comics.Synopsis</p>
+                        <p class="card-text">@comics.Id</p>
                     </div>
                 </div>
             </a>

@@ -9,6 +9,7 @@ using Brotherhood.Services.Interfaces;
 using Brotherhood.Domain.DTOs;
 using Brotherhood.Services;
 using Microsoft.AspNetCore.Cors;
+using Brotherhood.API.Helpers;
 
 namespace Brotherhood.API.Controllers
 {
@@ -18,10 +19,12 @@ namespace Brotherhood.API.Controllers
     public class ComicsController : ControllerBase
     {
         private readonly IComicServices _comicServices;
+        private readonly IFileUpload _fileUpload;
 
-        public ComicsController(IComicServices comicServices)
+        public ComicsController(IComicServices comicServices, IFileUpload fileUpload)
         {
             _comicServices = comicServices;
+            _fileUpload = fileUpload;
         }
 
         //GET: api/Comics
@@ -88,6 +91,12 @@ namespace Brotherhood.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostComics([FromBody]ComicsDTO comics)
         {
+            if (!string.IsNullOrWhiteSpace(comics.Cover))
+            {
+                var Covercomic = Convert.FromBase64String(comics.Cover);
+                comics.Cover = await _fileUpload.SaveFile(Covercomic, "jpg", "Comics");
+            }
+
             await _comicServices.AddComicAsync(comics);
             await _comicServices.SaveComicAsync();
 

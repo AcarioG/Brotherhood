@@ -1,0 +1,55 @@
+﻿@page "/comics/create"
+@inject IRepository repository 
+@inject NavigationManager navigation
+
+<h3>Create Comic</h3>
+
+<EditForm Model="ComicDTO" OnValidSubmit="Crear">
+    <div class="form-group">
+        <label>Titulo:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@ComicDTO.Title" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Cover:</label>
+        <div>
+            <InputFile class="form-control" @bind-Value="@ComicDTO.Cover" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Fecha:</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="@ComicDTO.DateReleased" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Sinopsis:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@ComicDTO.Synopsis" />
+        </div>
+    </div>
+
+    <button class="btn btn-success" type="submit">Upload Comic</button>
+</EditForm>
+
+
+@code {
+    private ComicsDTO ComicDTO = new ComicsDTO();
+
+    private async Task Crear()
+    {
+
+        var httpResponse = await repository.Post("http://localhost:51185/api/comics", ComicDTO);
+        if (httpResponse.Error)
+        {
+            var body = await httpResponse.HttpResponseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(body);
+        }
+        else
+        {
+            navigation.NavigateTo("/comics");
+        }
+
+    }
+}

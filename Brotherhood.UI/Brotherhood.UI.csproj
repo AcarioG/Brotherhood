@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Brotherhood.Domain\Brotherhood.Domain.csproj" />
+    <ProjectReference Include="..\Brotherhood.Services\Brotherhood.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

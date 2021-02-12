@@ -12,6 +12,7 @@ using Brotherhood.Services.Interfaces;
 using Brotherhood.Services.Service;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using Brotherhood.API.Helpers;
 
 namespace Brotherhood.API
 {
@@ -46,7 +47,7 @@ namespace Brotherhood.API
             });
 
 
-
+            services.AddTransient<IFileUpload, FileUploadAzure>();
             services.AddTransient<IChapterRepository, ChapterRepository>();
             services.AddTransient<IComicsRepository, ComicsRepository>();
             services.AddTransient<IUnitOfWorkRepository, UnitOfWorkRepository>();

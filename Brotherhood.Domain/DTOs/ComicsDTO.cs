@@ -10,8 +10,9 @@ namespace Brotherhood.Domain.DTOs
 {
     public class ComicsDTO
     {
+        public int? Id { get; set; }
         public string Title { get; set; }
-        public byte[] Cover { get; set; }
+        public string Cover { get; set; }
         [DataType(DataType.Date)]
         public DateTime DateReleased { get; set; }
         public ICollection<Gender> Genders { get; set; }
