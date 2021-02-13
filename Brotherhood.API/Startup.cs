@@ -35,7 +35,7 @@ namespace Brotherhood.API
                         .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood-Junior"),b => b.MigrationsAssembly("Brotherhood.API"));
+                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood"),b => b.MigrationsAssembly("Brotherhood.API"));
             });
             services.AddCors(options =>
             {
@@ -54,7 +54,7 @@ namespace Brotherhood.API
             services.AddTransient<IUnitOfWorkRepository, UnitOfWorkRepository>();
             services.AddTransient<IChapterServices, ChapterService>();
             services.AddTransient<IComicServices, ComicsService>();
-            
+
             services.AddSwaggerGen(setup =>
             {
                 setup.SwaggerDoc("v1", new OpenApiInfo() { Title = "Documentation", Version = "v1" });
@@ -67,7 +67,7 @@ namespace Brotherhood.API
             app.UseSwagger();
             app.UseSwaggerUI(setup =>
             {
-                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerDocumentation");
+                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerDocumentation v1");
             });
             if (env.IsDevelopment())
             {
