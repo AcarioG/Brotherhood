@@ -1,3 +1,6 @@
+using Brotherhood.UI.Repositories;
+using Brotherhood.UI.ViewModels;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,9 +19,13 @@ namespace Brotherhood.UI
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddHttpClient<IHttpClientFactory>("LocalData", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-            builder.Services.AddHttpClient<HttpClient>("WebService", client => client.BaseAddress = new Uri("http://localhost:51185/api/"));
-            
+
+            builder.Services.AddHttpClient("Client", client => {
+                client.BaseAddress = new Uri("http://localhost:51185/");
+            });
+
+            builder.Services.AddTransient<ComicViewModel>();
+
             await builder.Build().RunAsync();
         }
     }

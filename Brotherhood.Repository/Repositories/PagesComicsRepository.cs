@@ -15,26 +15,27 @@ namespace Brotherhood.Repository.Repositories
         {
         }
 
-        Task<IEnumerable<Page>> IPagesComicsRepository.GetAllPagesAsync()
+        public async Task AddPage(Page entity)
         {
             throw new NotImplementedException();
         }
 
-        Task IPagesComicsRepository.AddPage(Page entity)
+        public async Task DeletePage(Page entity)
         {
             throw new NotImplementedException();
         }
 
-        Task IPagesComicsRepository.ModifyPage(Page entity)
-        {
-            throw new NotImplementedException();
-        }
-        Task IPagesComicsRepository.DeletePage(Page entity)
+        public async Task<IEnumerable<Page>> GetAllPagesAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SavePageAsync()
+        public async Task ModifyPage(Page entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> SavePageAsync()
         {
             throw new NotImplementedException();
         }

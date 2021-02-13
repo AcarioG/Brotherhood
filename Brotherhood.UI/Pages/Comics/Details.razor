@@ -1,0 +1,21 @@
+﻿@*<div class="container">
+    @foreach (var comics in ComicsDTO)
+    {
+        <div class="col-sm-3">
+            <a href="/comics/{id}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @comics.Title
+                        </h5>
+                        <p class="card-text">@comics.Id</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>*@
+
+@code {
+
+}

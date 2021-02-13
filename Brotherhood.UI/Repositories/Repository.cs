@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Brotherhood.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -10,18 +11,30 @@ namespace Brotherhood.UI.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _http;
 
-        public Repository(HttpClient httpClient)
+        public Repository()
         {
-            _httpClient = httpClient;
         }
-        public async Task<HttpResponseWrapper<object>> Post<T>(string Url, T post)
+
+        public Repository(HttpClient http)
         {
-            var postJSON = JsonSerializer.Serialize(post);
-            var postContent = new StringContent(postJSON, Encoding.UTF8, "application/json");
-            var responseHttp = await _httpClient.PostAsync(Url, postContent);
-            return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
+            _http = http;
+        }
+
+        public async Task<string> GetAsync(string url)
+        {
+            HttpResponseMessage response = await _http.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+            return string.Empty;
+        }
+
+        public Task<string> Post(string url, string post)
+        {
+            throw new NotImplementedException();
         }
     }
 }

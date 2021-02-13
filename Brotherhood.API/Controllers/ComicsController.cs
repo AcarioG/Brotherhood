@@ -30,7 +30,7 @@ namespace Brotherhood.API.Controllers
         //GET: api/Comics
         [HttpGet]
         public async Task<IEnumerable<ComicsDTO>> GetAsync()
-            {
+        {
             var comics = await _comicServices.GetAllComicsAsync();
 
             if (comics == null)

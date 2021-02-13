@@ -4,48 +4,7 @@
 
 Welcome to your new app.
 
-@if (ComicsDTO == null)
-{
-    <p>Cargando......</p>
-}else
-{
-<table class="table">
-    <thead>
-        <tr>
-            <th>Titulo</th>
-            <th>Capitulos</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var comicDTO in ComicsDTO)
-        {
-            <tr>
-                <td><a href="">@comicDTO.Title</a></td>
-                <td>@comicDTO.Chapters.Count()</td>
-            </tr>
-        }
-    </tbody>
-</table>
-}
-
-
 @code {
-
-    private List<ComicsDTO> ComicsDTO = new List<ComicsDTO>();
-    HttpClient http = new HttpClient();
-
-    protected override async Task OnInitializedAsync()
-    {
-        string rpt = await http.GetStringAsync("http://localhost:51185/api/comics");
-        var data = JsonConvert.DeserializeObject<List<ComicsDTO>>(rpt);
-
-        //Console.WriteLine(rpt);
-        //var client = http.CreateClient("WebService");
-        //var data = await client.GetFromJsonAsync<List<ComicsDTO>>("comics");
-
-        ComicsDTO = data;
-    }
-
 
 
 }

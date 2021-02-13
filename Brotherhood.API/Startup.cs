@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using Brotherhood.API.Helpers;
 using Microsoft.OpenApi.Models;
+using Microsoft.Net.Http.Headers;
 
 namespace Brotherhood.API
 {
@@ -35,7 +36,7 @@ namespace Brotherhood.API
                         .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood"),b => b.MigrationsAssembly("Brotherhood.API"));
+                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood-Junior"),b => b.MigrationsAssembly("Brotherhood.API"));
             });
             services.AddCors(options =>
             {
@@ -76,7 +77,13 @@ namespace Brotherhood.API
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
+
+            //app.UseCors("CorsPolicy", policy =>
+            //            policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
+            //                  .AllowAnyMethod()
+            //                  .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header")
+            //                  .AllowCredentials());
 
             app.UseAuthorization();
 

@@ -7,6 +7,7 @@ namespace Brotherhood.UI.Repositories
 {
     public interface IRepository
     {
-        Task<HttpResponseWrapper<object>> Post<T>(string Url, T post);
+        Task<string> GetAsync(string url);
+        Task<string> Post(string url, string post);
     }
 }

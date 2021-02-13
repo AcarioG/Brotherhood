@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Brotherhood.Domain.Models
 {
@@ -11,6 +12,7 @@ namespace Brotherhood.Domain.Models
             CreatedOn = DateTime.Now;
             ModifiedOn = DateTime.Now;
         }
+        [JsonPropertyName("Id")]
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
