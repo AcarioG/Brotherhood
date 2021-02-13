@@ -13,7 +13,6 @@ using Brotherhood.Services.Service;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using Brotherhood.API.Helpers;
-using Microsoft.OpenApi.Models;
 
 namespace Brotherhood.API
 {
@@ -35,7 +34,7 @@ namespace Brotherhood.API
                         .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood-Junior"),b => b.MigrationsAssembly("Brotherhood.API"));
+                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood"),b => b.MigrationsAssembly("Brotherhood.API"));
             });
             services.AddCors(options =>
             {
@@ -54,21 +53,11 @@ namespace Brotherhood.API
             services.AddTransient<IUnitOfWorkRepository, UnitOfWorkRepository>();
             services.AddTransient<IChapterServices, ChapterService>();
             services.AddTransient<IComicServices, ComicsService>();
-
-            services.AddSwaggerGen(setup =>
-            {
-                setup.SwaggerDoc("v1", new OpenApiInfo() { Title = "Documentation", Version = "v1" });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(setup =>
-            {
-                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerSetupExample v1");
-            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
