@@ -31,12 +31,12 @@ namespace Brotherhood.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddControllersWithViews()
-                        .AddJsonOptions(o => o.JsonSerializerOptions
-                        .ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddControllersWithViews();
+            //            .AddJsonOptions(o => o.JsonSerializerOptions
+            //            .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood-Junior"),b => b.MigrationsAssembly("Brotherhood.API"));
+                options.UseSqlServer(Configuration.GetConnectionString("Brotherhood"),b => b.MigrationsAssembly("Brotherhood.API"));
             });
             services.AddCors(options =>
             {
@@ -79,13 +79,13 @@ namespace Brotherhood.API
 
             app.UseCors("CorsPolicy");
 
-            //app.UseCors("CorsPolicy", policy =>
-            //            policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
-            //                  .AllowAnyMethod()
-            //                  .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header")
-            //                  .AllowCredentials());
+           //app.UseCors("CorsPolicy", policy =>
+           //            policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
+           //                  .AllowAnyMethod()
+           //                  .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header")
+           //                  .AllowCredentials());
 
-            app.UseAuthorization();
+           app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

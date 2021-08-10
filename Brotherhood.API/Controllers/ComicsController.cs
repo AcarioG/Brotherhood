@@ -10,6 +10,7 @@ using Brotherhood.Domain.DTOs;
 using Brotherhood.Services;
 using Microsoft.AspNetCore.Cors;
 using Brotherhood.API.Helpers;
+using System.Text.Json;
 
 namespace Brotherhood.API.Controllers
 {
@@ -46,7 +47,6 @@ namespace Brotherhood.API.Controllers
         public async Task<ActionResult<ComicsDTO>> GetComic(int id)
         {
             var comics = await _comicServices.GetComicAsync(id);
-
             if (comics == null)
             {
                 return NotFound();
