@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.UI.ViewModels
 {
-    public class ComicViewModel
-    {
-        public IEnumerable<ComicJson> ComicJson { get; set; } = Enumerable.Empty<ComicJson>();
+    //public class ComicViewModel
+    //{
+    //    public IEnumerable<ComicJson> ComicJson { get; set; } = Enumerable.Empty<ComicJson>();
 
-        public async Task<IEnumerable<ComicJson>> GetComicsAsync(HttpResponseMessage response)
-        {
-            string json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ICollection<ComicJson>>(json);;
-        }
-    }
+    //    public async Task<IEnumerable<ComicJson>> GetComicsAsync(HttpResponseMessage response)
+    //    {
+    //        string json = await response.Content.ReadAsStringAsync();
+    //        return JsonConvert.DeserializeObject<ICollection<ComicJson>>(json);;
+    //    }
+    //}
 }

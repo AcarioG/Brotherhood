@@ -22,19 +22,61 @@ namespace Brotherhood.UI.Repositories
             _http = http;
         }
 
-        public async Task<string> GetAsync(string url)
+        private JsonSerializerOptions JSONoptions =>
+            new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+
+        public async Task<HttpResponseWrapper<T>> GetAsync<T>(string url)
         {
-            HttpResponseMessage response = await _http.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+            var responseHTTP = await _http.GetAsync(url);
+
+            if (responseHTTP.IsSuccessStatusCode)
             {
-                return await response.Content.ReadAsStringAsync();
+                var response = await DeserializeResponse<T>(responseHTTP, JSONoptions);
+                return new HttpResponseWrapper<T>(response, false, responseHTTP);
             }
-            return string.Empty;
+            else
+            {
+                return new HttpResponseWrapper<T>(default, true, responseHTTP);
+            }
         }
 
-        public Task<string> Post(string url, string post)
+        //public async Task<string> GetAsync(string url)
+        //{
+        //    HttpResponseMessage response = await _http.GetAsync(url);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        return await response.Content.ReadAsStringAsync();
+        //    }
+        //    return string.Empty;
+        //}
+        public async Task<HttpResponseWrapper<TResponse>> Post<T, TResponse>(string url, T post)
         {
-            throw new NotImplementedException();
+            var Json = JsonSerializer.Serialize(post);
+            var Content = new StringContent(Json, Encoding.UTF8, "application/json");
+            var responseHttp = await _http.PostAsync(url, Content);
+            if (responseHttp.IsSuccessStatusCode)
+            {
+                var response = await DeserializeResponse<TResponse>(responseHttp, JSONoptions);
+                return new HttpResponseWrapper<TResponse>(response, false, responseHttp);
+            }
+            else
+            {
+                return new HttpResponseWrapper<TResponse>(default, true, responseHttp);
+            }
+        }
+
+        public async Task<HttpResponseWrapper<object>> Post<T>(string url, T post)
+        {
+            var Json = JsonSerializer.Serialize(post);
+            var Content = new StringContent(Json, Encoding.UTF8, "application/json");
+            var responseHttp = await _http.PostAsync(url, Content);
+            return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
+        }
+
+        private async Task<T> DeserializeResponse<T>(HttpResponseMessage httpResponse, JsonSerializerOptions serializerOptions)
+        {
+            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(responseString, serializerOptions);
         }
     }
 }

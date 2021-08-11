@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.UI.Repositories
 {
-    public interface IComicHttpRepository : IRepository
-    {
-        Task<IEnumerable<Comic>> GetComicsAsync(string url);
-    }
+    //public interface IComicHttpRepository : IRepository
+    //{
+    //    Task<IEnumerable<Comic>> GetComicsAsync(string url);
+    //}
 }

@@ -1,11 +1,13 @@
 ﻿@page "/comics"
 @inject IHttpClientFactory http
-@inject ComicViewModel ComicView
+@inject IRepository repository
+@*@inject ComicViewModel ComicView*@
+
 
 <h3>Comics</h3>
 <a href="/comics/create" class="btn btn-info mb-2">Crear</a>
 
-@if (ComicView.ComicJson == null)
+@if (ComicDTO == null)
 {
     <p>Cargando......</p>
 }
@@ -19,11 +21,11 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var comic in ComicView.ComicJson)
+            @foreach (var comic in ComicDTO)
             {
                 <tr>
                     <td><a href="">@comic.Id</a></td>
-                    <td>@comic.Values.Count()</td>
+                    <td>@comic.Title</td>
                 </tr>
             }
         </tbody>
@@ -31,28 +33,34 @@ else
 }
 
 @code {
+    public List<ComicsDTO> ComicDTO { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            ComicView.ComicJson = await GetComicJsons();
-        }
-        catch (Exception)
-        {
-
-            throw;
-        }
+        var responseHttp = await repository.GetAsync<List<ComicsDTO>>("api/comics");
+        ComicDTO = responseHttp.Response;
+        
     }
 
-    async Task<IEnumerable<ComicJson>> GetComicJsons()
-    {
-        var client = http.CreateClient("Client");
-        var response = await client.GetAsync("api/comics", HttpCompletionOption.ResponseContentRead);
-        if (response.IsSuccessStatusCode)
-        {
-            return await ComicView.GetComicsAsync(response);
-        }
-        return null;
-    }
+
+    //try
+    //   {
+    //       ComicView.ComicJson = await GetComicJsons();
+    //   }
+    //   catch (Exception)
+    //   {
+
+    //       throw;
+    //   }
+
+    //    protected async override Task OnInitializedAsync()
+
+    //var client = http.CreateClient("Client");
+    //    var response = await client.GetAsync("api/comics", HttpCompletionOption.ResponseContentRead);
+    //if (response.IsSuccessStatusCode)
+    //{
+    //    return await ComicView.GetComicsAsync(response);
+    //}
+    //return null;
+
 
 }

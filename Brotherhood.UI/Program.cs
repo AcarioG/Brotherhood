@@ -21,7 +21,7 @@ namespace Brotherhood.UI
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddHttpClient("Client", client => {
-                client.BaseAddress = new Uri("http://localhost:51185/");
+                client.BaseAddress = new Uri("http://localhost:5000/");
             });
 
             builder.Services.AddTransient<ComicViewModel>();

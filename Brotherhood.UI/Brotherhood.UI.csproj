@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Brotherhood.API\Brotherhood.API.csproj" />
     <ProjectReference Include="..\Brotherhood.Services\Brotherhood.Services.csproj" />
   </ItemGroup>
 

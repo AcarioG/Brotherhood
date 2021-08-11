@@ -14,7 +14,7 @@ namespace Brotherhood.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cover = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Cover = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateReleased = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -43,8 +43,7 @@ namespace Brotherhood.API.Migrations
                         name: "FK_Chapters_Comics_ComicId",
                         column: x => x.ComicId,
                         principalTable: "Comics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -70,25 +69,24 @@ namespace Brotherhood.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PagesComics",
+                name: "Pages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Pages = table.Column<byte>(type: "tinyint", nullable: false),
+                    Pages = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     ChapterId = table.Column<int>(type: "int", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PagesComics", x => x.Id);
+                    table.PrimaryKey("PK_Pages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PagesComics_Chapters_ChapterId",
+                        name: "FK_Pages_Chapters_ChapterId",
                         column: x => x.ChapterId,
                         principalTable: "Chapters",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -102,8 +100,8 @@ namespace Brotherhood.API.Migrations
                 column: "ComicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PagesComics_ChapterId",
-                table: "PagesComics",
+                name: "IX_Pages_ChapterId",
+                table: "Pages",
                 column: "ChapterId");
         }
 
@@ -113,7 +111,7 @@ namespace Brotherhood.API.Migrations
                 name: "Genders");
 
             migrationBuilder.DropTable(
-                name: "PagesComics");
+                name: "Pages");
 
             migrationBuilder.DropTable(
                 name: "Chapters");

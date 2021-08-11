@@ -1,10 +1,11 @@
 ﻿@page "/comics/create"
 @inject IRepository repository 
+@inject IErrorMessage ErrorMessage
 @inject NavigationManager navigation
 
 <h3>Create Comic</h3>
 
-@*<EditForm Model="ComicDTO" OnValidSubmit="Crear">
+<EditForm Model="ComicDTO" OnValidSubmit="Crear">
     <div class="form-group">
         <label>Titulo:</label>
         <div>
@@ -31,25 +32,23 @@
     </div>
 
     <button class="btn btn-success" type="submit">Upload Comic</button>
-</EditForm>*@
+</EditForm>
 
 
 @code {
-    //private ComicsDTO ComicDTO = new ComicsDTO();
+    private ComicsDTO ComicDTO = new ComicsDTO();
 
-    //private async Task Crear()
-    //{
-
-    //    //var httpResponse = await repository.Post("http://localhost:51185/api/comics", ComicDTO);
-    //    if (httpResponse.Error)
-    //    {
-    //        var body = await httpResponse.HttpResponseMessage.Content.ReadAsStringAsync();
-    //        Console.WriteLine(body);
-    //    }
-    //    else
-    //    {
-    //        navigation.NavigateTo("/comics");
-    //    }
-
-    //}
+    private async Task Crear()
+    {
+        var httpResponse = await repository.Post<ComicsDTO, int>("api/comics", ComicDTO);
+        if (httpResponse.Error)
+        {
+            var body = await httpResponse.GetBody();
+            await ErrorMessage.ShowErrorMessage(body);
+        }
+        else
+        {
+            navigation.NavigateTo("/comics");
+        }
+    }
 }

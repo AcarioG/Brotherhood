@@ -24,6 +24,7 @@ namespace Brotherhood.Services
         {
             return new ComicsDTO()
             {
+                Id = comic.Id,
                 Chapters = comic.Chapters,
                 Cover = comic.Cover,
                 DateReleased = comic.DateReleased,
@@ -37,6 +38,7 @@ namespace Brotherhood.Services
         {
             return new Comic()
             {
+                Id = (int)comic.Id,
                 Chapters = comic.Chapters,
                 Cover = comic.Cover,
                 DateReleased = comic.DateReleased,

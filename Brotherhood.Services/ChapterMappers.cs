@@ -26,6 +26,7 @@ namespace Brotherhood.Services
         {
             return new ChapterDTO()
             {
+                Id = chapterDTO.Id,
                 Comic = chapterDTO.Comic,
                 Pages = chapterDTO.Pages,
                 TitleChapter = chapterDTO.TitleChapter
@@ -36,6 +37,7 @@ namespace Brotherhood.Services
         {
             return new Chapter()
             {
+                Id = chapterDTO.Id,
                 Comic = chapterDTO.Comic,
                 Pages = chapterDTO.Pages,
                 TitleChapter = chapterDTO.TitleChapter

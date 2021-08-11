@@ -39,6 +39,7 @@ namespace Brotherhood.Domain.Models
                         .HasMany(p => p.Pages)
                         .WithOne(p => p.Chapter)
                         .OnDelete(DeleteBehavior.NoAction);
+
             base.OnModelCreating(modelBuilder);
         }
     }

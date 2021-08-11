@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Brotherhood.UI.Repositories
 {
-    public class ComicHttpRepository : Repository, IComicHttpRepository
-    {
-        public async Task<IEnumerable<Comic>> GetComicsAsync(string url)
-        {
-            string response = await GetAsync(url);
-            return JsonConvert.DeserializeObject<IEnumerable<Comic>>(response);
-        }
-    }
+    //public class ComicHttpRepository : Repository, IComicHttpRepository
+    //{
+    //    public async Task<IEnumerable<Comic>> GetComicsAsync(string url)
+    //    {
+    //        string response = await GetAsync(url);
+    //        return JsonConvert.DeserializeObject<IEnumerable<Comic>>(response);
+    //    }
+    //}
 }

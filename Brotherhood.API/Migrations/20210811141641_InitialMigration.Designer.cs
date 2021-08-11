@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brotherhood.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210120025117_deleteCascade-added")]
-    partial class deleteCascadeadded
+    [Migration("20210811141641_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Brotherhood.API.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Brotherhood.Domain.Models.Chapter", b =>
                 {
@@ -54,8 +54,8 @@ namespace Brotherhood.API.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<byte[]>("Cover")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("Cover")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
