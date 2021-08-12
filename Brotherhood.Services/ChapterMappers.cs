@@ -37,7 +37,7 @@ namespace Brotherhood.Services
         {
             return new Chapter()
             {
-                Id = chapterDTO.Id,
+                Id = (int)chapterDTO.Id,
                 Comic = chapterDTO.Comic,
                 Pages = chapterDTO.Pages,
                 TitleChapter = chapterDTO.TitleChapter

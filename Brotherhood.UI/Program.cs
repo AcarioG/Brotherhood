@@ -24,7 +24,8 @@ namespace Brotherhood.UI
                 client.BaseAddress = new Uri("http://localhost:5000/");
             });
 
-            builder.Services.AddTransient<ComicViewModel>();
+            builder.Services.AddScoped<IRepository, Brotherhood.UI.Repositories.Repository>();
+            builder.Services.AddScoped<IErrorMessage, ErrorMessage>();
 
             await builder.Build().RunAsync();
         }

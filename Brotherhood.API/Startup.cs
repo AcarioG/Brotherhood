@@ -10,7 +10,7 @@ using Brotherhood.Repository.Repositories;
 using Brotherhood.Services.UnitOfWork;
 using Brotherhood.Services.Interfaces;
 using Brotherhood.Services.Service;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Text.Json.Serialization;
 using Brotherhood.API.Helpers;
 using Microsoft.OpenApi.Models;

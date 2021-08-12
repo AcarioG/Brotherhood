@@ -73,6 +73,9 @@ namespace Brotherhood.UI.Repositories
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
+        /// <summary>
+        /// Deserializa el JSON obtenido en el response
+        /// </summary>
         private async Task<T> DeserializeResponse<T>(HttpResponseMessage httpResponse, JsonSerializerOptions serializerOptions)
         {
             var responseString = await httpResponse.Content.ReadAsStringAsync();

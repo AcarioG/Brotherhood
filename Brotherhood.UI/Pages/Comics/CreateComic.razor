@@ -7,6 +7,12 @@
 
 <EditForm Model="ComicDTO" OnValidSubmit="Crear">
     <div class="form-group">
+        <label>Id:</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="@ComicDTO.Id" />
+        </div>
+    </div>
+    <div class="form-group">
         <label>Titulo:</label>
         <div>
             <InputText class="form-control" @bind-Value="@ComicDTO.Title" />
@@ -15,7 +21,7 @@
     <div class="form-group">
         <label>Cover:</label>
         <div>
-            <InputFile class="form-control" @bind-Value="@ComicDTO.Cover" />
+            <InputFile  class="form-control" @bind-Value="@ComicDTO.Cover" />
         </div>
     </div>
     <div class="form-group">
@@ -40,7 +46,7 @@
 
     private async Task Crear()
     {
-        var httpResponse = await repository.Post<ComicsDTO, int>("api/comics", ComicDTO);
+        var httpResponse = await repository.Post<ComicsDTO, int>("http://localhost:5000/api/comics", ComicDTO);
         if (httpResponse.Error)
         {
             var body = await httpResponse.GetBody();

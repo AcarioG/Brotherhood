@@ -1,7 +1,6 @@
 ﻿@page "/comics"
 @inject IHttpClientFactory http
 @inject IRepository repository
-@*@inject ComicViewModel ComicView*@
 
 
 <h3>Comics</h3>
@@ -13,32 +12,30 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Titulo</th>
-                <th>Capitulos</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var comic in ComicDTO)
-            {
-                <tr>
-                    <td><a href="">@comic.Id</a></td>
-                    <td>@comic.Title</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<div class="card-deck">
+    @foreach (var comic in ComicDTO)
+    {
+        <div class="card">
+            @*<img class="card-img-top" src="..." alt="Card image cap">*@
+            <div class="card-body">
+                <h5 class="card-title">@comic.Title</h5>
+                @*<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>*@
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    }
+</div>
+    }
 
-@code {
+    @code {
     public List<ComicsDTO> ComicDTO { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await repository.GetAsync<List<ComicsDTO>>("api/comics");
+        var responseHttp = await repository.GetAsync<List<ComicsDTO>>("http://localhost:5000/api/comics");
         ComicDTO = responseHttp.Response;
-        
+
     }
 
 
@@ -63,4 +60,4 @@ else
     //return null;
 
 
-}
+    }
